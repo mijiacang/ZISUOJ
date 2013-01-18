@@ -67,13 +67,16 @@ $(function () {
   <tbody>
 <?php
 for ($i=0;$i<$pid_cnt;$i++){
+	//echo $pid_cnt;
 	if(!isset($PID[$i])) $PID[$i]="";
 	
 	if ($i&1) 
 		echo "<tr align=center class=oddrow><td>";
 	else 
 		echo "<tr align=center class=evenrow><td>";
+	if($pid_cnt<26)
 	echo "<a href='problem.php?cid=$cid&pid=$i'>$PID[$i]</a>";
+	else echo "<a href='problem.php?cid=$cid&pid=$i'>$i</a>";
 	for ($j=0;$j<21;$j++) {
 		if(!isset($R[$i][$j])) $R[$i][$j]="";
 		echo "<td>".$R[$i][$j];

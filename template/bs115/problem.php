@@ -25,14 +25,25 @@
 <div id=main>
 	
 	<?php
-	
+	if(isset($cid)){
+		$res="select * from contest_problem where contest_id='$cid'";//even.2013.01.18:取出本场比赛的problem
+		$res=mysql_query($res);
+		$problem_rows=mysql_num_rows($res);
+		//echo "problem rows is :".$problem_rows."<br>";
+		mysql_free_result($res);
+	}
 	if ($pr_flag){
 		echo "<title>$MSG_PROBLEM $row->problem_id. -- $row->title</title>";
 		echo "<center><h2>$id: $row->title</h2>";
 	}else{
 		$PID="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		echo "<title>$MSG_PROBLEM $PID[$pid]: $row->title </title>";
-		echo "<center><h2>$MSG_PROBLEM $PID[$pid]: $row->title</h2>";
+		if($problem_rows<26){
+			echo "<title>$MSG_PROBLEM $PID[$pid]: $row->title </title>";
+			echo "<center><h2>$MSG_PROBLEM $PID[$pid]: $row->title</h2>";
+		}else {
+			echo "<title>$MSG_PROBLEM $pid: $row->title </title>";
+			echo "<center><h2>$MSG_PROBLEM $pid: $row->title</h2>";
+		}
 	}
 	echo "<span class=green>$MSG_Time_Limit: </span>$row->time_limit Sec&nbsp;&nbsp;";
 	echo "<span class=green>$MSG_Memory_Limit: </span>".$row->memory_limit." MB";
